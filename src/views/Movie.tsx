@@ -66,7 +66,7 @@ export default function Movie() {
                 rock.x = rock.x - 3;
             }
 
-            if (Math.random() < 0.01) {
+            if (Math.random() < 0.02) {
                 rocks.push({
                     x: canvas.width,
                     y: Math.random() * canvas.height,
