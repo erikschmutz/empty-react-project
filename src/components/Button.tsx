@@ -8,6 +8,7 @@ type OnClickEvent = React.MouseEvent<HTMLButtonElement, MouseEvent>;
 interface ButtonInput extends OnClickProps<OnClickEvent> {
     size?: ButtonSize;
     type?: ButtonType;
+    disable?: boolean;
     children: string;
 }
 
@@ -18,11 +19,17 @@ export default function Button(props: ButtonInput) {
         onClick,
         type = 'primary',
         className,
+        disable,
     } = props;
 
     const typeClass: string = {
         primary: classnames('bg-blue-900', 'hover:bg-blue-500', 'text-white'),
-        secondary: classnames('hover:shadow', 'text-black', 'border'),
+        secondary: classnames(
+            'hover:shadow',
+            'text-black',
+            'border',
+            'bg-white',
+        ),
         ghost: '',
     }[type];
 
@@ -44,10 +51,12 @@ export default function Button(props: ButtonInput) {
         'mr-1',
     );
 
+    const disabled = disable ? classnames('text-opacity-40') : '';
+
     return (
         <button
-            onClick={onClick}
-            className={`${typeClass} ${sizeClass} ${defaultClass} ${className} `}
+            onClick={!disable ? onClick : undefined}
+            className={`${defaultClass} ${typeClass} ${sizeClass} ${disabled} ${className}`}
         >
             {children}
         </button>
